@@ -7,7 +7,7 @@ import Queue
 import time
 
 pygame.init()
-screen = pygame.display.set_mode((800, 480))
+screen = pygame.display.set_mode((800, 480), pygame.FULLSCREEN)
 pygame.font.init()
 done = False
 
