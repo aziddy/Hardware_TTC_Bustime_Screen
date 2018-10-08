@@ -3,7 +3,7 @@ import requests
 import json
 import math
 import threading
-import queue
+import Queue
 import time
 
 pygame.init()
@@ -58,7 +58,7 @@ def async_ttc(q):
 	q.put(countdown_minus)
 
 
-q = queue.Queue()
+q = Queue.Queue()
 
 myfont = pygame.font.SysFont('arial', 30)
 
@@ -90,12 +90,12 @@ while not done:
 			t = threading.Thread(target=async_ttc, args = (q,))
 			t.daemon = True
 			t.start()
-			print("a press")
+			#print("a press")
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
 			done = True
 	
 	if pygame.mouse.get_pressed()[0]:
-		print ("You have opened a chest!")
+		#print ("You have opened a chest!")
 		t = threading.Thread(target=async_ttc, args = (q,))
 		t.daemon = True
 		t.start()
@@ -107,7 +107,7 @@ while not done:
 	
 	screen.fill((250,250,250)) 
 	
-	print(math.floor(local_countdown()))
+	#print(math.floor(local_countdown()))
 	local_countdown_number = math.floor(time.clock())
 	
 	if not q.empty():
@@ -125,8 +125,8 @@ while not done:
 			
 			total_seconds = TTCdata[t][1][k] - local_countdown()
 			
-			timer_minutes = math.floor(total_seconds/60)
-			timer_seconds = (total_seconds - timer_minutes*60)
+			timer_minutes = int(math.floor(total_seconds/60))
+			timer_seconds = int((total_seconds - timer_minutes*60))
 			
 			if first:
 				screen.blit(firstValFont.render(str(timer_minutes)+":"+str(timer_seconds), False, (80, 80, 80)),(100,y+50))
